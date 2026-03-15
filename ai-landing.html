@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AI顧問面談 × 數位力證明</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #C8BFB0;
+    --bg-light: #D9D2C5;
+    --bg-dark:  #A89F92;
+    --cream:    #F5F0E8;
+    --white:    #FDFCF9;
+    --brown:    #6B4E35;
+    --brown-dk: #3E2A18;
+    --char:     #2E2520;
+    --accent:   #8B6F47;
+    --gold:     #C4996A;
+    --tag-bg:   rgba(107,78,53,0.12);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--cream);
+    color: var(--char);
+    max-width: 480px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    background: var(--bg);
+    overflow: hidden;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* dot pattern background */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px);
+    background-size: 18px 18px;
+    opacity: .5;
+  }
+
+  .hero-top {
+    position: relative;
+    z-index: 2;
+    padding: 56px 28px 24px;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.5);
+    backdrop-filter: blur(6px);
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--brown-dk);
+    margin-bottom: 24px;
+  }
+  .badge-dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:.4; transform:scale(1.5); }
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--brown-dk);
+    line-height: 1.25;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--brown);
+    position: relative;
+  }
+  .hero h1 em::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 100%; height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--brown);
+    font-weight: 500;
+    line-height: 1.7;
+    letter-spacing: 1px;
+    margin-bottom: 32px;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--brown-dk);
+    color: var(--cream);
+    font-size: 17px;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    letter-spacing: 2px;
+    box-shadow: 0 8px 28px rgba(62,42,24,0.30);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .cta-btn:active { transform: scale(0.97); }
+
+  /* hero image – sits at bottom, NO text overlap */
+  .hero-img {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+  }
+  .hero-img img {
+    width: 100%;
+    display: block;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 48px 28px; }
+
+  .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .sec-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--brown-dk);
+    line-height: 1.45;
+    margin-bottom: 16px;
+  }
+
+  .sec-body {
+    font-size: 15px;
+    color: #5A4A3A;
+    line-height: 1.85;
+  }
+
+  /* thin divider */
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, var(--bg-dark), transparent);
+    margin: 0 28px;
+  }
+
+  /* ─── PAIN POINTS ─── */
+  .pain { background: var(--bg-light); }
+
+  .pain-list {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pain-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.50);
+    border-radius: 14px;
+    padding: 16px 18px;
+    border-left: 3px solid var(--gold);
+  }
+  .pain-icon { font-size: 22px; min-width: 28px; text-align:center; }
+  .pain-text { font-size: 15px; color: var(--brown-dk); font-weight: 500; line-height: 1.6; }
+
+  /* ─── FEATURES ─── */
+  .features { background: var(--white); }
+
+  .feat-grid {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .feat-card {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    border-bottom: 3px solid var(--bg-dark);
+  }
+  .feat-card .icon { font-size: 28px; margin-bottom: 10px; }
+  .feat-card strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--brown-dk);
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+  .feat-card span {
+    font-size: 12px;
+    color: #7A6050;
+    line-height: 1.6;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .how { background: var(--bg-light); }
+
+  .steps {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+  }
+  .steps::before {
+    content:'';
+    position: absolute;
+    left: 20px; top: 24px; bottom: 24px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .step {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 10px 0;
+  }
+  .step-num {
+    width: 40px; height: 40px; min-width: 40px;
+    background: var(--brown-dk);
+    color: var(--cream);
+    border-radius: 50%;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    box-shadow: 0 3px 10px rgba(62,42,24,.25);
+  }
+  .step-info { padding-top: 8px; }
+  .step-info strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brown-dk);
+    margin-bottom: 3px;
+  }
+  .step-info span {
+    font-size: 13px;
+    color: #7A6050;
+    line-height: 1.6;
+  }
+
+  /* ─── PROOF / STATS ─── */
+  .stats { background: var(--brown-dk); padding: 44px 28px; }
+  .stats .label { color: var(--gold); }
+  .stats .sec-title { color: var(--cream); }
+
+  .stat-row {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    text-align: center;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(196,153,106,.30);
+    border-radius: 14px;
+    padding: 18px 8px;
+  }
+  .stat-num {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-desc {
+    font-size: 11px;
+    color: rgba(245,240,232,.70);
+    line-height: 1.5;
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials { background: var(--white); }
+
+  .t-list {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .t-card {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 22px 20px;
+    position: relative;
+  }
+  .t-card::before {
+    content: '"';
+    position: absolute;
+    top: 10px; left: 16px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 48px;
+    color: var(--bg-dark);
+    line-height: 1;
+    opacity: .5;
+  }
+  .t-quote {
+    font-size: 15px;
+    color: var(--char);
+    line-height: 1.75;
+    padding-top: 16px;
+    margin-bottom: 14px;
+  }
+  .t-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .t-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .t-name { font-size: 13px; color: var(--brown); font-weight: 600; }
+  .t-role { font-size: 11px; color: #9A8070; }
+
+  /* ─── FINAL CTA ─── */
+  .final {
+    background: linear-gradient(160deg, var(--bg) 0%, var(--bg-dark) 100%);
+    padding: 60px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .final-inner { position: relative; z-index: 1; }
+  .final h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--brown-dk);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .final p {
+    font-size: 15px;
+    color: var(--brown);
+    line-height: 1.75;
+    margin-bottom: 36px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--brown-dk);
+    color: rgba(245,240,232,.45);
+    text-align: center;
+    padding: 20px 28px;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  /* ─── FADE IN ─── */
+  .fade {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .65s ease, transform .65s ease;
+  }
+  .fade.on { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<!-- ① HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="badge"><span class="badge-dot"></span>AI × 職涯升級</div>
+    <h1>通過<em>AI顧問面談</em><br>不只找工作</h1>
+    <p class="hero-sub">更證明你的數位力</p>
+    <a href="https://line.me/ti/p/hjaPk2LVJ6" class="cta-btn">立即預約 AI 面談</a>
+  </div>
+  <div class="hero-img">
+    <img src="https://i.ibb.co/0jrvdT0Q/photo-2026-03-15-14-16-48.jpg" alt="AI顧問面談示意圖">
+  </div>
+</div>
+
+<!-- ② 你是否有這些困擾 -->
+<section class="pain fade">
+  <p class="label">你是否有這些困擾</p>
+  <h2 class="sec-title">找工作，<br>卻不知道自己夠不夠格？</h2>
+  <div class="pain-list">
+    <div class="pain-item">
+      <span class="pain-icon">😶</span>
+      <p class="pain-text">不確定自己的技能在市場上有沒有競爭力</p>
+    </div>
+    <div class="pain-item">
+      <span class="pain-icon">📄</span>
+      <p class="pain-text">履歷投出去石沉大海，不知道問題在哪</p>
+    </div>
+    <div class="pain-item">
+      <span class="pain-icon">🤖</span>
+      <p class="pain-text">聽說 AI 很重要，但不知道從何學起</p>
+    </div>
+    <div class="pain-item">
+      <span class="pain-icon">🔍</span>
+      <p class="pain-text">想轉職，卻找不到方向與切入點</p>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ③ 服務亮點 -->
+<section class="features fade">
+  <p class="label">我們的解法</p>
+  <h2 class="sec-title">AI 顧問幫你<br>精準找到定位</h2>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="icon">🧠</div>
+      <strong>AI 職能分析</strong>
+      <span>深度評估你的技能組合與市場價值</span>
+    </div>
+    <div class="feat-card">
+      <div class="icon">📊</div>
+      <strong>數位力報告</strong>
+      <span>量化你的 AI 應用能力，有憑有據</span>
+    </div>
+    <div class="feat-card">
+      <div class="icon">🎯</div>
+      <strong>職缺精準媒合</strong>
+      <span>依你的強項推薦最適合的職缺</span>
+    </div>
+    <div class="feat-card">
+      <div class="icon">💬</div>
+      <strong>顧問一對一輔導</strong>
+      <span>面試準備、薪資談判全程支援</span>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ④ 流程 -->
+<section class="how fade">
+  <p class="label">如何開始</p>
+  <h2 class="sec-title">三步驟<br>展現你的數位力</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-info">
+        <strong>加 LINE 預約面談</strong>
+        <span>填寫基本資料，選擇方便的時間</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-info">
+        <strong>AI 顧問深度診斷</strong>
+        <span>30 分鐘線上面談，評估你的技能與目標</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-info">
+        <strong>取得數位力報告</strong>
+        <span>獲得個人化建議，直接對接合適職缺</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ 數據佐證 -->
+<section class="stats fade">
+  <p class="label">成效數據</p>
+  <h2 class="sec-title">數字說話</h2>
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">87%</div>
+      <div class="stat-desc">面談後<br>成功轉職</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">30<span style="font-size:14px">天</span></div>
+      <div class="stat-desc">平均上工<br>時間</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">500<span style="font-size:14px">+</span></div>
+      <div class="stat-desc">合作<br>友善企業</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ 真實回饋 -->
+<section class="testimonials fade">
+  <p class="label">真實回饋</p>
+  <h2 class="sec-title">他們這樣說</h2>
+  <div class="t-list">
+    <div class="t-card">
+      <p class="t-quote">AI 幫我分析出我最強的領域，推薦的職缺完全符合期待，兩週就拿到 offer。</p>
+      <div class="t-author">
+        <div class="t-avatar">👩</div>
+        <div>
+          <p class="t-name">林小姐</p>
+          <p class="t-role">47歲・從行政轉型數位專員</p>
+        </div>
+      </div>
+    </div>
+    <div class="t-card">
+      <p class="t-quote">過去投了幾十封履歷都沒回音，AI 面談後才知道我的表達方式有問題，改了就上了。</p>
+      <div class="t-author">
+        <div class="t-avatar">👨</div>
+        <div>
+          <p class="t-name">陳先生</p>
+          <p class="t-role">53歲・成功再就業</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ FINAL CTA -->
+<section class="final">
+  <div class="final-inner">
+    <h2>立即預約<br>AI 顧問面談</h2>
+    <p>免費・線上・30 分鐘<br>今天就踏出第一步</p>
+    <a href="https://line.me/ti/p/hjaPk2LVJ6" class="cta-btn">立即預約 AI 面談</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 AI 職涯顧問平台 ・ 本次面談完全免費
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
